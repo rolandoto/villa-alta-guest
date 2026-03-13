@@ -2,547 +2,341 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-export interface HeroSlide {
-  imgLeft: string;
-  imgCenter: string;
-  imgRight: string;
-  imgTitle: string;
-  title: string;
-  subtitle: string;
-  location: string;
-  tag?: string;
-  year?: string | number;
-}
-
-// ─── Default slides ───────────────────────────────────────────────────────────
-const DEFAULT_SLIDES: HeroSlide[] = [
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const SLIDES = [
   {
-    imgLeft:   "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80",
-    imgCenter: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80",
-    imgRight:  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    imgTitle:  "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=80",
-    title: "VILLA ALTA",
-    subtitle: "Guest House",
-    location: "Cartagena",
-    tag: "Architectural Heritage",
-    year: 2026,
+    id: 0,
+    label: "01",
+    tag: "ARCHITECTURAL HERITAGE",
+    location: "CARTAGENA",
+    left: "/FotosHotelVillaAlta/FOTOS/DSC06277.jpg",
+    center: "/FotosHotelVillaAlta/FOTOS/DSC06378.jpg",
+    rightTop: "/FotosHotelVillaAlta/FOTOS/DSC06299.jpg",
+    rightBottom: "/FotosHotelVillaAlta/FOTOS/DSC06462.jpg",
   },
   {
-    imgLeft:   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
-    imgCenter: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80",
-    imgRight:  "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e?w=800&q=80",
-    imgTitle:  "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&q=80",
-    title: "CASA MAR",
-    subtitle: "Boutique Hotel",
-    location: "Santa Marta",
-    tag: "Coastal Retreat",
-    year: 2026,
+    id: 1,
+    label: "02",
+    tag: "LIVING SPACES",
+    location: "GETSEMANÍ",
+      left: "/FotosHotelVillaAlta/FOTOS/DSC06758.jpg",
+    center: "/FotosHotelVillaAlta/FOTOS/DSC06779.jpg",
+    rightTop: "/FotosHotelVillaAlta/FOTOS/DSC06784.jpg",
+    rightBottom: "/FotosHotelVillaAlta/FOTOS/DSC06432.jpg",
   },
   {
-    imgLeft:   "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&q=80",
-    imgCenter: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80",
-    imgRight:  "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
-    imgTitle:  "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1600&q=80",
-    title: "HACIENDA",
-    subtitle: "Private Estate",
-    location: "Barichara",
-    tag: "Colonial Heritage",
-    year: 2026,
+    id: 2,
+    label: "03",
+    tag: "CULINARY ARTS",
+    location: "CIUDAD AMURALLADA",
+      left: "/FotosHotelVillaAlta/FOTOS/DSC06506.jpg",
+    center: "/FotosHotelVillaAlta/FOTOS/DSC06553.jpg",
+    rightTop: "/FotosHotelVillaAlta/FOTOS/DSC06737.jpg",
+    rightBottom: "/FotosHotelVillaAlta/FOTOS/DSC06754.jpg",
   },
 ];
 
-// ─── Props ────────────────────────────────────────────────────────────────────
-interface GalleryHeroSliderProps {
-  slides?: HeroSlide[];
-  autoPlay?: boolean;
-  autoPlayInterval?: number;
-}
+const WORD1 = "VILLA".split("");
+const WORD2 = "ALTA".split("");
 
-// ─── Component ────────────────────────────────────────────────────────────────
-export default function GalleryHeroSlider({
-  slides = DEFAULT_SLIDES,
-  autoPlay = true,
-  autoPlayInterval = 6000,
-}: GalleryHeroSliderProps) {
-  const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
+export default function GalleryHeroSlider() {
+  const [active, setActive] = useState(0);
+  const isAnimating = useRef(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef(0);
 
-  const sectionRef   = useRef<HTMLDivElement>(null);
-  const imgLeftRef   = useRef<HTMLDivElement>(null);
-  const imgCenterRef = useRef<HTMLDivElement>(null);
-  const imgRightRef  = useRef<HTMLDivElement>(null);
-  const titleRef     = useRef<HTMLHeadingElement>(null);
-  const subtitleRef  = useRef<HTMLParagraphElement>(null);
-  const btnRef       = useRef<HTMLDivElement>(null);
-  const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
+  // refs
+  const leftRef = useRef<HTMLDivElement>(null);
+  const centerRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const subRef = useRef<HTMLDivElement>(null);
 
-  const slide = slides[current];
+  // letter refs for both text layers (dark + blend)
+  const darkLetterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const blendLetterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // ─── Slide transition ─────────────────────────────────────────────────────
-  const goTo = useCallback(
-    (index: number) => {
-      if (transitioning || index === current) return;
-      setTransitioning(true);
-
-      const targets = [
-        imgLeftRef.current,
-        imgCenterRef.current,
-        imgRightRef.current,
-        titleRef.current,
-        subtitleRef.current,
-      ];
-
-      gsap.to(targets, {
-        opacity: 0,
-        y: -14,
-        duration: 0.38,
-        ease: "power3.in",
-        stagger: 0.03,
-        onComplete: () => {
-          setCurrent(index);
-          gsap.fromTo(
-            targets,
-            { opacity: 0, y: 18 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.58,
-              ease: "power3.out",
-              stagger: 0.055,
-              onComplete: () => setTransitioning(false),
-            }
-          );
-        },
-      });
-    },
-    [current, transitioning]
-  );
-
-  const next = useCallback(
-    () => goTo((current + 1) % slides.length),
-    [goTo, current, slides.length]
-  );
-  const prev = useCallback(
-    () => goTo((current - 1 + slides.length) % slides.length),
-    [goTo, current, slides.length]
-  );
-
-  // ─── AutoPlay ──────────────────────────────────────────────────────────────
-  const resetTimer = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    if (autoPlay) timerRef.current = setInterval(next, autoPlayInterval);
-  }, [autoPlay, autoPlayInterval, next]);
-
+  // ── Entry ──────────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (autoPlay) timerRef.current = setInterval(next, autoPlayInterval);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current]);
+    const tl = gsap.timeline({ delay: 0.15 });
 
-  // ─── GSAP scroll parallax ─────────────────────────────────────────────────
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=120%",
-          scrub: 1.4,
-          pin: true,
-        },
-      });
-      tl.to(imgLeftRef.current,   { x: "-22vw", y: -60, scale: 0.88, ease: "none" }, 0);
-      tl.to(imgCenterRef.current, { y: -80,              scale: 0.92, ease: "none" }, 0);
-      tl.to(imgRightRef.current,  { x: "22vw",  y: -60, scale: 0.88, ease: "none" }, 0);
-      tl.to(titleRef.current,     { scale: 0.9, opacity: 0.5, ease: "none" }, 0);
-      tl.to(subtitleRef.current,  { y: 30, opacity: 0, ease: "none" }, 0);
-      tl.to(btnRef.current,       { y: 50, opacity: 0, ease: "none" }, 0);
-    }, sectionRef);
-    return () => ctx.revert();
+    tl.fromTo(metaRef.current, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
+
+    tl.fromTo(leftRef.current,
+      { x: -70, opacity: 0, rotate: -5, scale: 0.93 },
+      { x: 0, opacity: 1, rotate: -2, scale: 1, duration: 1.3, ease: "expo.out" },
+      "-=0.4"
+    );
+    tl.fromTo(centerRef.current,
+      { y: 70, opacity: 0, scale: 0.87 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.5, ease: "expo.out" },
+      "-=1.1"
+    );
+    tl.fromTo(rightRef.current,
+      { x: 70, opacity: 0, rotate: 5, scale: 0.93 },
+      { x: 0, opacity: 1, rotate: 2, scale: 1, duration: 1.3, ease: "expo.out" },
+      "-=1.3"
+    );
+
+    // reveal letters — both layers simultaneously
+    const allDark = darkLetterRefs.current.filter(Boolean);
+    const allBlend = blendLetterRefs.current.filter(Boolean);
+    tl.fromTo(
+      [...allDark, ...allBlend],
+      { clipPath: "inset(0 105% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: 1.1, stagger: { each: 0.07, from: "start" }, ease: "expo.inOut" },
+      "-=1"
+    );
+
+    tl.fromTo([subRef.current, btnRef.current],
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "expo.out" },
+      "-=0.5"
+    );
+
+    // float
+    gsap.to(centerRef.current, { y: -14, duration: 4.5, ease: "sine.inOut", yoyo: true, repeat: -1 });
   }, []);
+
+  // ── Mouse parallax ─────────────────────────────────────────────────────────
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const dx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const dy = (e.clientY / window.innerHeight - 0.5) * 2;
+      gsap.to(leftRef.current, { x: dx * -22, y: dy * -10, rotate: -2 + dx * 2, duration: 1.7, ease: "power2.out" });
+      gsap.to(centerRef.current, { x: dx * 9, y: dy * -15, duration: 2, ease: "power2.out" });
+      gsap.to(rightRef.current, { x: dx * 22, y: dy * -10, rotate: 2 + dx * 2, duration: 1.7, ease: "power2.out" });
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  // ── Slide transition ───────────────────────────────────────────────────────
+  const goTo = useCallback((idx: number) => {
+    if (isAnimating.current || idx === active) return;
+    isAnimating.current = true;
+
+    const cards = [leftRef.current, centerRef.current, rightRef.current];
+    const allLetters = [
+      ...darkLetterRefs.current.filter(Boolean),
+      ...blendLetterRefs.current.filter(Boolean),
+    ];
+
+    const tl = gsap.timeline({
+      onComplete: () => { setActive(idx); isAnimating.current = false; },
+    });
+
+    tl.to(cards, { scale: 0.92, filter: "blur(10px)", opacity: 0, duration: 0.42, stagger: 0.04, ease: "power3.in" });
+    tl.to(allLetters, { clipPath: "inset(0 105% 0 0)", duration: 0.38, stagger: 0.04, ease: "power2.in" }, "-=0.28");
+
+    tl.call(() => {
+      const s = SLIDES[idx];
+      wrapRef.current?.querySelectorAll<HTMLImageElement>("[data-img]").forEach((img) => {
+        const k = img.dataset.img as keyof typeof s;
+        if (typeof s[k] === "string") img.src = s[k] as string;
+      });
+    });
+
+    tl.to(cards, { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.85, stagger: 0.06, ease: "expo.out" });
+    tl.fromTo(allLetters,
+      { clipPath: "inset(0 105% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: 1, stagger: 0.06, ease: "expo.inOut" },
+      "-=0.65"
+    );
+  }, [active]);
+
+  // ── Auto ───────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const t = setTimeout(() => goTo((active + 1) % SLIDES.length), 5500);
+    return () => clearTimeout(t);
+  }, [active, goTo]);
+
+  const slide = SLIDES[active];
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,200&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Montserrat:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; }
 
-        .ghs-wrap {
+        .gh-wrap {
           position: relative;
           width: 100%;
-          height: 100vh;
-          background: #eae6df;
+          height: 100dvh;
+          background: #e8e2d9;
           overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          /* isolation creates a new stacking context so mix-blend-mode works correctly */
+          isolation: isolate;
         }
 
-        /* ─── top bar ─── */
-        .ghs-topbar {
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 60px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 48px;
-          z-index: 40;
-        }
-        .ghs-topbar::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 48px; right: 48px;
-          height: 1px;
-          background: rgba(150,144,135,.18);
-        }
-        .ghs-brand {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          font-size: 12px;
-          letter-spacing: .32em;
-          text-transform: uppercase;
-          color: #635e57;
-        }
-        .ghs-tag-label {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 400;
-          font-size: 11px;
-          letter-spacing: .22em;
-          text-transform: uppercase;
-          color: #a09890;
-        }
-        .ghs-tag-label span {
-          margin: 0 6px;
-          opacity: .45;
-        }
-        .ghs-topnav {
-          display: flex;
-          gap: 28px;
-        }
-        .ghs-topnav a {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 400;
-          font-size: 11px;
-          letter-spacing: .22em;
-          text-transform: uppercase;
-          color: #a09890;
-          text-decoration: none;
-          transition: color .2s;
-          cursor: pointer;
-        }
-        .ghs-topnav a:hover { color: #3c3830; }
-
-        /* ─── photos ─── */
-        .ghs-photo {
-          position: absolute;
-          overflow: hidden;
-          border-radius: 3px;
-          box-shadow: 0 20px 60px rgba(0,0,0,.16), 0 4px 14px rgba(0,0,0,.07);
-          will-change: transform;
-        }
-        .ghs-photo img {
+        /* ── CARD images ── */
+        .gh-img {
           width: 100%; height: 100%;
-          object-fit: cover;
-          display: block;
+          object-fit: cover; display: block;
+          transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
         }
-        .ghs-photo-left {
-          width: clamp(190px, 19vw, 310px);
-          height: clamp(270px, 43vh, 490px);
-          left: clamp(40px, 7vw, 110px);
-          top: calc(50% - 24px);
-          transform: translateY(-50%);
-          z-index: 5;
-        }
-        .ghs-photo-center {
-          width: clamp(310px, 31vw, 520px);
-          height: clamp(390px, 62vh, 660px);
-          left: 50%; top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 4;
-        }
-        .ghs-photo-right {
-          width: clamp(190px, 19vw, 310px);
-          height: clamp(270px, 43vh, 490px);
-          right: clamp(40px, 7vw, 110px);
-          top: calc(50% + 24px);
-          transform: translateY(-50%);
-          z-index: 5;
-        }
+        .gh-card:hover .gh-img { transform: scale(1.05); }
 
-        /* ─── title ─── */
-        .ghs-title-wrap {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          text-align: center;
-          z-index: 10;
-          pointer-events: none;
-          white-space: nowrap;
-        }
-        .ghs-clip-title {
+        /* ── Letter base styles ── */
+        .gh-letter-dark {
+          display: inline-block;
           font-family: 'Barlow Condensed', sans-serif;
           font-weight: 900;
-          font-size: clamp(96px, 15.5vw, 250px);
-          letter-spacing: -.025em;
-          text-transform: uppercase;
-          line-height: .95;
-          background-size: cover;
-          background-position: center;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: rgba(14, 18, 30, 0.80);
+          font-size: clamp(70px, 13.5vw, 200px);
+          letter-spacing: -0.015em;
+          line-height: 0.87;
+          clip-path: inset(0 105% 0 0);
+        }
+
+        /* Dark layer — the actual dark text sitting ABOVE cards */
+        .dark-letter { color: #22201d; }
+
+        /* Blend letter — same geometry, bg color, multiply mode
+           Where multiply(bg-color, photo) = photo shows through letters */
+        .blend-letter {
+          color: #e8e2d9;  /* same as background */
           mix-blend-mode: multiply;
         }
-        .ghs-subtitle {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 200;
-          font-style: italic;
-          font-size: clamp(11px, 1vw, 17px);
-          letter-spacing: .72em;
-          text-transform: uppercase;
-          color: #948e85;
-          margin-top: 12px;
-          padding-right: .72em;
-        }
 
-        /* ─── bottom bar ─── */
-        .ghs-bottombar {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 72px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 48px;
-          z-index: 40;
-          gap: 32px;
-        }
-        .ghs-bottombar::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 48px; right: 48px;
-          height: 1px;
-          background: rgba(150,144,135,.18);
-        }
-
-        /* counter */
-        .ghs-counter {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: 11px;
-          letter-spacing: .2em;
-          color: #a09890;
-          text-transform: uppercase;
-          flex-shrink: 0;
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-        }
-        .ghs-counter-current {
-          font-weight: 700;
-          font-size: 22px;
-          color: #504c46;
-          letter-spacing: 0;
-          line-height: 1;
-        }
-        .ghs-counter-sep { opacity: .3; }
-
-        /* progress */
-        .ghs-progress {
-          flex: 1;
-          display: flex;
-          gap: 6px;
-          align-items: center;
-          min-width: 0;
-        }
-        .ghs-track {
-          flex: 1;
-          height: 1px;
-          background: rgba(150,144,135,.25);
-          position: relative;
-          cursor: pointer;
-          overflow: hidden;
-        }
-        .ghs-track::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: #635e57;
-          transform-origin: left;
-          transform: scaleX(0);
-        }
-        .ghs-track.done::after {
-          transform: scaleX(1);
-          transition: none;
-        }
-        .ghs-track.active::after {
-          transform: scaleX(1);
-          transition: transform var(--dur) linear;
-        }
-
-        /* right side: location + cta */
-        .ghs-right {
-          display: flex;
-          align-items: center;
-          gap: 24px;
-          flex-shrink: 0;
-        }
-        .ghs-location {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 400;
-          font-size: 11px;
-          letter-spacing: .28em;
-          text-transform: uppercase;
-          color: #a09890;
-        }
-        .ghs-cta-btn {
-          padding: 10px 36px;
-          border: 1px solid #c0bbb3;
-          border-radius: 2px;
+        /* discover button */
+        .gh-btn {
           background: transparent;
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: 10px;
-          letter-spacing: .38em;
-          text-transform: uppercase;
-          color: #726d65;
+          border: 1px solid rgba(34,32,29,0.3);
+          border-radius: 999px;
+          padding: 12px 38px;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.52rem;
+          font-weight: 500;
+          letter-spacing: 0.28em;
+          color: #2a2620;
           cursor: pointer;
-          transition: background .22s, border-color .22s, color .22s;
-          white-space: nowrap;
+          position: relative;
+          overflow: hidden;
+          transition: color 0.4s;
         }
-        .ghs-cta-btn:hover {
-          background: rgba(0,0,0,.04);
-          border-color: #88837b;
-          color: #343028;
+        .gh-btn::before {
+          content: '';
+          position: absolute; inset: 0;
+          background: #22201d;
+          border-radius: 999px;
+          transform: scaleX(0); transform-origin: left;
+          transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+        .gh-btn:hover::before { transform: scaleX(1); }
+        .gh-btn:hover { color: #e8e2d9; }
+        .gh-btn span { position: relative; z-index: 1; }
+
+        .gh-dot-btn {
+          background: none; border: none; padding: 5px; cursor: pointer;
+          display: flex; align-items: center;
         }
 
-        /* ─── arrow buttons — bottom corners, above the bar ─── */
-        .ghs-arrows {
-          position: absolute;
-          bottom: 72px;
-          display: flex;
-          z-index: 40;
-        }
-        .ghs-arrows-left  { left: 48px; }
-        .ghs-arrows-right { right: 48px; }
-
-        .ghs-arrow-btn {
-          width: 44px; height: 44px;
-          background: rgba(234,230,223,0.85);
-          backdrop-filter: blur(6px);
-          border: 1px solid rgba(150,144,135,.3);
-          color: #726d65;
-          cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 13px;
-          transition: background .2s, color .2s, border-color .2s;
-          letter-spacing: 0;
-        }
-        .ghs-arrow-btn:first-child {
-          border-right: none;
-        }
-        .ghs-arrow-btn:hover {
-          background: rgba(210,205,197,0.95);
-          color: #1e1c18;
-          border-color: rgba(100,95,88,.45);
-        }
-
-        .ghs-scroll-space {
-          height: 120vh;
-          background: #eae6df;
+        @media (max-width: 600px) {
+          .gh-left-card, .gh-right-card { display: none !important; }
+          .gh-center-card { width: 78vw !important; }
         }
       `}</style>
 
-      <div ref={sectionRef} className="ghs-wrap">
-
-        {/* top bar */}
-        <header className="ghs-topbar">
-          <span className="ghs-brand">{slide.subtitle} — {slide.year}</span>
-          <div className="ghs-tag-label">
-            <span>[</span>{slide.tag}<span>]</span>
+      <div
+        ref={wrapRef}
+        className="gh-wrap"
+        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          const dx = e.changedTouches[0].clientX - touchStartX.current;
+          if (Math.abs(dx) > 50) dx < 0 ? goTo((active + 1) % SLIDES.length) : goTo((active - 1 + SLIDES.length) % SLIDES.length);
+        }}
+      >
+        {/* ── TOP META ── */}
+        <div ref={metaRef} style={{ opacity: 0, position: "absolute", top: 0, left: 0, right: 0, zIndex: 50, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(14px,3vw,22px) clamp(18px,4vw,36px)" }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(0.38rem,1.2vw,0.5rem)", letterSpacing: "0.22em", color: "#2a2620", fontWeight: 400 }}>
+            VILLA ALTA GUEST HOUSE, 2026
+          </span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(0.38rem,1.2vw,0.5rem)", letterSpacing: "0.22em", color: "#2a2620", fontWeight: 400 }}>
+            ({slide.tag})
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(0.38rem,1.2vw,0.5rem)", letterSpacing: "0.22em", color: "#2a2620", fontWeight: 400 }}>
+            <span>{slide.label}</span>
+            <span style={{ opacity: 0.3 }}>|</span>
+            <span>{slide.location}</span>
           </div>
-          <nav className="ghs-topnav">
-            <a>Rooms</a>
-            <a>Gallery</a>
-            <a>Book</a>
-          </nav>
-        </header>
-
-        {/* photos */}
-        <div ref={imgLeftRef} className="ghs-photo ghs-photo-left">
-          <img src={slide.imgLeft} alt="interior" />
-        </div>
-        <div ref={imgCenterRef} className="ghs-photo ghs-photo-center">
-          <img src={slide.imgCenter} alt="main view" />
-        </div>
-        <div ref={imgRightRef} className="ghs-photo ghs-photo-right">
-          <img src={slide.imgRight} alt="exterior" />
         </div>
 
-        {/* clipped title */}
-        <div className="ghs-title-wrap">
-          <h1
-            ref={titleRef}
-            className="ghs-clip-title"
-            style={{ backgroundImage: `url('${slide.imgTitle}')` }}
-          >
-            {slide.title}
-          </h1>
-          <p ref={subtitleRef} className="ghs-subtitle">{slide.subtitle}</p>
-        </div>
+      
 
-        {/* bottom bar */}
-        <footer ref={btnRef} className="ghs-bottombar">
-          {/* counter */}
-          <div className="ghs-counter">
-            <span className="ghs-counter-current">0{current + 1}</span>
-            <span className="ghs-counter-sep">/</span>
-            <span>0{slides.length}</span>
+        {/* ── LAYER 2: PHOTO CARDS ── */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {/* Left */}
+          <div ref={leftRef} className="gh-card gh-left-card" style={{ position: "absolute", left: "4%", top: "50%", transform: "translateY(-50%) rotate(-2deg)", width: "clamp(150px,18vw,270px)", opacity: 0, zIndex: 10 }}>
+            <div style={{ borderRadius: 3, overflow: "hidden", boxShadow: "0 18px 55px rgba(0,0,0,0.22)", aspectRatio: "3/4" }}>
+              <img data-img="left" src={slide.left} alt="left" className="gh-img" />
+            </div>
           </div>
 
-          {/* progress tracks */}
-          <div className="ghs-progress">
-            {slides.map((_, i) => (
-              <div
-                key={i}
-                className={`ghs-track${i === current ? " active" : i < current ? " done" : ""}`}
-                style={{ "--dur": `${autoPlayInterval}ms` } as React.CSSProperties}
-                onClick={() => { goTo(i); resetTimer(); }}
-              />
+          {/* Center */}
+          <div ref={centerRef} className="gh-card gh-center-card" style={{ position: "relative", width: "clamp(210px,27vw,410px)", opacity: 0, zIndex: 12 }}>
+            <div style={{ borderRadius: 3, overflow: "hidden", boxShadow: "0 28px 75px rgba(0,0,0,0.28)", aspectRatio: "2/3" }}>
+              <img data-img="center" src={slide.center} alt="center" className="gh-img" />
+            </div>
+          </div>
+
+          {/* Right */}
+          <div ref={rightRef} className="gh-card gh-right-card" style={{ position: "absolute", right: "4%", top: "50%", transform: "translateY(-50%) rotate(2deg)", width: "clamp(150px,18vw,270px)", opacity: 0, zIndex: 10, display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ borderRadius: 3, overflow: "hidden", boxShadow: "0 14px 45px rgba(0,0,0,0.2)", aspectRatio: "4/3" }}>
+              <img data-img="rightTop" src={slide.rightTop} alt="right top" className="gh-img" />
+            </div>
+            <div style={{ borderRadius: 3, overflow: "hidden", boxShadow: "0 14px 45px rgba(0,0,0,0.2)", aspectRatio: "4/3" }}>
+              <img data-img="rightBottom" src={slide.rightBottom} alt="right bottom" className="gh-img" />
+            </div>
+          </div>
+        </div>
+        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", userSelect: "none" }}>
+          <div style={{ display: "flex", lineHeight: 0.87 }}>
+            {WORD1.map((ch, i) => (
+              <span key={i} ref={(el) => { darkLetterRefs.current[i] = el; }} className="gh-letter-dark dark-letter">{ch}</span>
+            ))}
+            <span className="gh-letter-dark dark-letter" style={{ width: "0.22em" }} />
+            {WORD2.map((ch, i) => (
+              <span key={i + 6} ref={(el) => { darkLetterRefs.current[i + 6] = el; }} className="gh-letter-dark dark-letter">{ch}</span>
             ))}
           </div>
-
-          {/* location + CTA */}
-          <div className="ghs-right">
-            <span className="ghs-location">{slide.location}</span>
-            <button className="ghs-cta-btn">Discover More</button>
+          <div ref={subRef} style={{ opacity: 0, marginTop: "0.55rem", textAlign: "center" }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(8px,1.4vw,17px)", letterSpacing: "0.48em", color: "rgba(42,38,32,0.55)", fontWeight: 300 }}>
+              GUEST&nbsp;&nbsp;&nbsp;HOUSE
+            </span>
           </div>
-        </footer>
-
-        {/* arrow pair — bottom left */}
-        <div className="ghs-arrows ghs-arrows-left">
-          <button
-            className="ghs-arrow-btn"
-            aria-label="Previous slide"
-            onClick={() => { prev(); resetTimer(); }}
-          >
-            ←
-          </button>
-          <button
-            className="ghs-arrow-btn"
-            aria-label="Next slide"
-            onClick={() => { next(); resetTimer(); }}
-          >
-            →
-          </button>
         </div>
-
+        <div style={{ position: "absolute", inset: 0, zIndex: 30, pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center", userSelect: "none", mixBlendMode: "multiply" }}>
+          <div style={{ display: "flex", lineHeight: 0.87 }}>
+            {WORD1.map((ch, i) => (
+              <span key={i} ref={(el) => { blendLetterRefs.current[i] = el; }} className="gh-letter-dark blend-letter">{ch}</span>
+            ))}
+            <span className="gh-letter-dark blend-letter" style={{ width: "0.22em" }} />
+            {WORD2.map((ch, i) => (
+              <span key={i + 6} ref={(el) => { blendLetterRefs.current[i + 6] = el; }} className="gh-letter-dark blend-letter">{ch}</span>
+            ))}
+          </div>
+        </div>
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 50, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "0 20px clamp(22px,4vw,38px)" }}>
+          <button ref={btnRef} className="gh-btn" style={{ opacity: 0 }}>
+            <span>DISCOVER MORE</span>
+          </button>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {SLIDES.map((_, i) => (
+              <button key={i} className="gh-dot-btn" onClick={() => goTo(i)}>
+                <div style={{ height: 5, width: i === active ? 22 : 5, borderRadius: 3, background: i === active ? "#22201d" : "rgba(34,32,29,0.22)", transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)" }} />
+              </button>
+            ))}
+          </div>
+        </div>
+        <div style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%) rotate(-90deg)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.36rem", letterSpacing: "0.3em", color: "rgba(34,32,29,0.18)", whiteSpace: "nowrap", zIndex: 5, pointerEvents: "none" }}>
+          VILLA ALTA — ARCHITECTURAL HERITAGE
+        </div>
+        <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%) rotate(90deg)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.36rem", letterSpacing: "0.3em", color: "rgba(34,32,29,0.18)", whiteSpace: "nowrap", zIndex: 5, pointerEvents: "none" }}>
+          CARTAGENA DE INDIAS — COLOMBIA
+        </div>
       </div>
-
-      <div className="ghs-scroll-space" />
     </>
   );
 }
