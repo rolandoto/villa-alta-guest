@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
@@ -8,7 +9,7 @@ const SLIDES = [
   {
     id: 0,
     label: "01",
-    tag: "ARCHITECTURAL HERITAGE",
+    tag: "PATRIMONIO ARQUITECTÓNICO",
     location: "CARTAGENA",
     left: "/FotosHotelVillaAlta/FOTOS/DSC06277.jpg",
     center: "/FotosHotelVillaAlta/FOTOS/DSC06378.jpg",
@@ -18,7 +19,7 @@ const SLIDES = [
   {
     id: 1,
     label: "02",
-    tag: "LIVING SPACES",
+    tag: "ESPACIOS PARA VIVIR",
     location: "GETSEMANÍ",
       left: "/FotosHotelVillaAlta/FOTOS/DSC06758.jpg",
     center: "/FotosHotelVillaAlta/FOTOS/DSC06779.jpg",
@@ -28,7 +29,7 @@ const SLIDES = [
   {
     id: 2,
     label: "03",
-    tag: "CULINARY ARTS",
+    tag: "GASTRONOMÍA",
     location: "CIUDAD AMURALLADA",
       left: "/FotosHotelVillaAlta/FOTOS/DSC06506.jpg",
     center: "/FotosHotelVillaAlta/FOTOS/DSC06553.jpg",
@@ -51,7 +52,6 @@ export default function GalleryHeroSlider() {
   const centerRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const metaRef = useRef<HTMLDivElement>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
 
   // letter refs for both text layers (dark + blend)
@@ -90,7 +90,7 @@ export default function GalleryHeroSlider() {
       "-=1"
     );
 
-    tl.fromTo([subRef.current, btnRef.current],
+    tl.fromTo([subRef.current],
       { opacity: 0, y: 14 },
       { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "expo.out" },
       "-=0.5"
@@ -251,7 +251,7 @@ export default function GalleryHeroSlider() {
         {/* ── TOP META ── */}
         <div ref={metaRef} style={{ opacity: 0, position: "absolute", top: 0, left: 0, right: 0, zIndex: 50, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(14px,3vw,22px) clamp(18px,4vw,36px)" }}>
           <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(0.38rem,1.2vw,0.5rem)", letterSpacing: "0.22em", color: "#2a2620", fontWeight: 400 }}>
-            VILLA ALTA GUEST HOUSE, 2026
+            VILLA ALTA CASA DE HUÉSPEDES, 2026
           </span>
           <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "clamp(0.38rem,1.2vw,0.5rem)", letterSpacing: "0.22em", color: "#2a2620", fontWeight: 400 }}>
             ({slide.tag})
@@ -319,9 +319,9 @@ export default function GalleryHeroSlider() {
           </div>
         </div>
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 50, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "0 20px clamp(22px,4vw,38px)" }}>
-          <button ref={btnRef} className="gh-btn" style={{ opacity: 0 }}>
-            <span>DISCOVER MORE</span>
-          </button>
+          <Link href="/contacto" className="gh-btn" style={{ opacity: 1, pointerEvents: "auto" }}>
+            <span>RESERVAR</span>
+          </Link>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             {SLIDES.map((_, i) => (
               <button key={i} className="gh-dot-btn" onClick={() => goTo(i)}>
@@ -331,7 +331,7 @@ export default function GalleryHeroSlider() {
           </div>
         </div>
         <div style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%) rotate(-90deg)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.36rem", letterSpacing: "0.3em", color: "rgba(34,32,29,0.18)", whiteSpace: "nowrap", zIndex: 5, pointerEvents: "none" }}>
-          VILLA ALTA — ARCHITECTURAL HERITAGE
+          VILLA ALTA — PATRIMONIO ARQUITECTÓNICO
         </div>
         <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%) rotate(90deg)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.36rem", letterSpacing: "0.3em", color: "rgba(34,32,29,0.18)", whiteSpace: "nowrap", zIndex: 5, pointerEvents: "none" }}>
           CARTAGENA DE INDIAS — COLOMBIA

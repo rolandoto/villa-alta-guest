@@ -6,7 +6,7 @@ function img(path: string, w = 1200) {
 }
 
 export const HOTEL = {
-  name: "Villa Alta Guest House",
+  name: "Villa Alta Casa de Huéspedes",
   tagline: "Patrimonio Arquitectónico · Siglo XVIII",
   location: "CL Callejón De Los Estribos, Centro Histórico",
   city: "Cartagena de Indias, Colombia 130001",
@@ -42,7 +42,7 @@ export const ROOMS: Room[] = [
     id: 1,
     slug: "suite-duplex-balcon-1",
     number: "01",
-    title: "Habitación Duplex",
+    title: "Habitación Dúplex",
     subtitle: "CON BALCÓN",
     description:
       "Distribución en dos niveles con dormitorio superior y sala social con balcón al callejón histórico.",
@@ -57,7 +57,7 @@ export const ROOMS: Room[] = [
       "Balcón privado",
       "Desayuno incluido",
       "Check-out tardío",
-      "Minibar con maquina hielo",
+      "Minibar con máquina de hielo",
     ],
     images: [
     "/FotosHotelVillaAlta/HABITACIONSUITEBALCON1/SUITEALCOBA1.jpg",
@@ -78,7 +78,7 @@ export const ROOMS: Room[] = [
     id: 2,
     slug: "suite-duplex-balcon-2",
     number: "02",
-    title: "Habitación Duplex",
+    title: "Habitación Dúplex",
     subtitle: "SIN VISTA CON AMPLIA SALA DE ESTAR",
     description:
       "Esta habitación dúplex ofrece una distribución amplia y silenciosa, perfecta para estancias prolongadas o para quienes buscan un espacio tranquilo para trabajar y descansar. La habitación se organiza en dos niveles: en el nivel superior se encuentra el dormitorio con cama, TV y minibar, mientras que el nivel inferior cuenta con una generosa sala de estar, ideal para leer, trabajar o relajarse, además de baño privado y un área de bar completamente equipada. Aunque no cuenta con vista exterior, su amplitud, techos altos y acabados cálidos crean una atmósfera acogedora y serena. Es una excelente alternativa para quienes priorizan comodidad, silencio y espacio interior.",
@@ -90,7 +90,7 @@ export const ROOMS: Room[] = [
       "Dúplex 2 niveles",
       "Baño",
       "Desayuno incluido",
-      "Minibar con maquina hielo",
+      "Minibar con máquina de hielo",
     ],
     images: [
       ("/FotosHotelVillaAlta/HABITACIONSUITE6/BAÑOHAB6Y7.jpg"),
@@ -99,14 +99,14 @@ export const ROOMS: Room[] = [
          ("/FotosHotelVillaAlta/HABITACIONSUITE6/SUITEDUPLEXHAB-6CAMA.jpg"),
           ("/FotosHotelVillaAlta/HABITACIONSUITE6/SUITEDUPLEXHAB6INBALCON.jpg"),
     ],
-    hasBalcony: true,
+    hasBalcony: false,
     floors: 2,
   },
-   {
+  {
     id: 3,
     slug: "habitacion-premium",
     number: "07",
-    title: "Suite  Premium",
+    title: "Suite Premium",
     subtitle: "EN UN SOLO NIVEL",
     description:
     "Nuestra suite está diseñada para ofrecer máximo confort en un solo nivel, sin escaleras, facilitando una experiencia cómoda y fluida. Tanto el área de descanso como el espacio social se encuentran en el mismo piso, lo que la convierte en la opción más accesible y práctica del hotel. Cuenta con una cama extra grande y una distribución amplia que privilegia la tranquilidad y el descanso. Al no tener vista exterior, la suite ofrece un ambiente más silencioso y privado. Dispone de baño privado y un área de bar completamente equipada, ideal para descansar plenamente después de un día explorando la ciudad.",
@@ -118,7 +118,7 @@ export const ROOMS: Room[] = [
       "TV inteligente",
       "Desayuno incluido",
       "Check-out tardío",
-      "Minibar con maquina hielo",
+      "Minibar con máquina de hielo",
     ],
     images: [
      ("/FotosHotelVillaAlta/HABITACIONPREMIUMSENCILLA7/HABITACIONPREMIUM-SENCILLA7.jpg"),
