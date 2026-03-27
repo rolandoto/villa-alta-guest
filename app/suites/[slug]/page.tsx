@@ -14,28 +14,80 @@ export default async function SuiteDetailPage({ params }: { params: Promise<{ sl
   if (!room) notFound();
 
   return (
-    <section style={{ padding: "140px 24px 80px", background: "#17120f", color: "#fff", minHeight: "100vh" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <Link href="/suites" style={{ textTransform: "uppercase", letterSpacing: ".2em", fontSize: 12, opacity: 0.8 }}>← Volver a suites</Link>
-        <h1 style={{ margin: "16px 0", fontSize: "clamp(34px,7vw,74px)", textTransform: "uppercase" }}>
-          Suite {room.number} · {room.title}
-        </h1>
-        <p style={{ maxWidth: 850, lineHeight: 1.7, opacity: 0.9 }}>{room.longDescription}</p>
+    <section style={{ padding: "130px 24px 80px", background: "#120f0f", minHeight: "100vh", color: "#f3ede3" }}>
+      <div style={{ maxWidth: 1220, margin: "0 auto" }}>
+        <Link href="/suites" style={{ ...btnBack }}>← Volver a suites</Link>
 
-        <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 10 }}>
-          {room.images.map((src, i) => (
-            <figure key={src + i} style={{ margin: 0, position: "relative", width: "100%", aspectRatio: "4/5" }}>
-              <Image src={src} alt={`${room.title} ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover", borderRadius: 4 }} />
-            </figure>
-          ))}
+        <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 18, alignItems: "start" }}>
+          <div style={{ gridColumn: "span 2" }}>
+            <p style={{ margin: 0, letterSpacing: ".24em", textTransform: "uppercase", fontSize: 12, color: "#d8b98f" }}>
+              Suite {room.number}
+            </p>
+            <h1 style={{ margin: "12px 0", fontSize: "clamp(34px,6vw,76px)", lineHeight: 0.95, textTransform: "uppercase" }}>
+              {room.title}
+            </h1>
+            <p style={{ margin: "0 0 12px", textTransform: "uppercase", letterSpacing: ".12em", fontSize: 12, color: "rgba(243,237,227,.7)" }}>
+              {room.subtitle}
+            </p>
+            <p style={{ margin: 0, maxWidth: 860, lineHeight: 1.8, color: "rgba(243,237,227,.85)" }}>{room.longDescription}</p>
+          </div>
+
+          <div style={{ border: "1px solid rgba(255,255,255,.12)", borderRadius: 8, padding: 16, background: "rgba(255,255,255,.03)" }}>
+            <p style={{ margin: 0, textTransform: "uppercase", letterSpacing: ".16em", fontSize: 11, color: "#d8b98f" }}>Incluye</p>
+            <ul style={{ margin: "10px 0 0", paddingLeft: 18, lineHeight: 1.9 }}>
+              {room.features.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+            <Link href="/contacto" style={btnReservar}>
+              Reservar esta suite
+            </Link>
+          </div>
         </div>
 
-        <div style={{ marginTop: 26 }}>
-          <Link href="/contacto" style={{ border: "1px solid #fff", padding: "10px 22px", textTransform: "uppercase", letterSpacing: ".2em", fontSize: 12 }}>
-            Reservar
-          </Link>
+        <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 10 }}>
+          {room.images.map((src, i) => (
+            <figure
+              key={src + i}
+              style={{
+                margin: 0,
+                position: "relative",
+                width: "100%",
+                aspectRatio: "4/3",
+                borderRadius: 6,
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,.08)",
+              }}
+            >
+              <Image src={src} alt={`${room.title} ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
+            </figure>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
+const btnBack = {
+  display: "inline-flex",
+  border: "1px solid rgba(255,255,255,.4)",
+  borderRadius: 999,
+  padding: "9px 16px",
+  textTransform: "uppercase" as const,
+  letterSpacing: ".18em",
+  fontSize: 11,
+  color: "#f3ede3",
+};
+
+const btnReservar = {
+  marginTop: 14,
+  display: "inline-flex",
+  border: "1px solid #d8b98f",
+  borderRadius: 999,
+  padding: "10px 15px",
+  textTransform: "uppercase" as const,
+  letterSpacing: ".16em",
+  fontSize: 11,
+  color: "#120f0f",
+  background: "#d8b98f",
+};
