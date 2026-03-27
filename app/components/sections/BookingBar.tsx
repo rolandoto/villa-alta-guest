@@ -8,14 +8,14 @@ const ITEMS = [
   "7 Suites Únicas",
   "Cartagena de Indias",
   "Siglo XVIII",
-  "9.4 / 10 Rating",
+  "Calificación 9.4 / 10",
   "Desayuno Incluido",
   "Patrimonio Arquitectónico",
   "Centro Histórico",
   "7 Suites Únicas",
   "Cartagena de Indias",
   "Siglo XVIII",
-  "9.4 / 10 Rating",
+  "Calificación 9.4 / 10",
   "Desayuno Incluido",
 ];
 

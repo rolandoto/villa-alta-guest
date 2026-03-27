@@ -1,7 +1,20 @@
-import type { Config } from "tailwindcss";
+import type { NextConfig } from "next";
 
-const config: Config = {
-  
+const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/gallery",
+        destination: "/galeria",
+        permanent: true,
+      },
+      {
+        source: "/book",
+        destination: "/contacto",
+        permanent: true,
+      },
+    ];
+  },
 };
 
-export default config;
+export default nextConfig;
