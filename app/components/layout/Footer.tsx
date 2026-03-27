@@ -198,7 +198,7 @@ export default function Footer() {
           }}
         >
           <span>© 2026 Villa Alta Guest House</span>
-          <span>Developed by SLE Development</span>
+          <span>Desarrollado por SLE Development</span>
         </div>
       </div>
     </footer>
