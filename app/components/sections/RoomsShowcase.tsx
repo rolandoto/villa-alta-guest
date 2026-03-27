@@ -590,7 +590,7 @@ export default function RoomsShowcase() {
               <span style={{ opacity: .3, margin: "0 4px" }}>/</span>
               0{total}
             </div>
-            <span>Habitacion</span>
+            <span>Habitación</span>
           </div>
         </header>
         <div className="rs-body">
@@ -636,7 +636,7 @@ export default function RoomsShowcase() {
               dangerouslySetInnerHTML={{ __html: room.subtitle.split(" ").slice(0, 3).join(" ") }}
             />
             <div
-              className="-title-sub"
+              className="rs-title-sub"
               dangerouslySetInnerHTML={{ __html: room.subtitle.split(" ").slice(3).join(" ") || "&nbsp;" }}
             />
             <div className="rs-divider" />
@@ -672,14 +672,14 @@ export default function RoomsShowcase() {
           </div>
 
           <div className="rs-next-col">
-            <button className="rs-next-btn" onClick={nextRoom} aria-label="Next room">
+            <button className="rs-next-btn" onClick={nextRoom} aria-label="Siguiente habitación">
               <span>Siguiente</span>
               <span className="rs-next-arrow">→</span>
             </button>
           </div>
 
         </div>
-        <nav className="rs-tabs" aria-label="Rooms">
+        <nav className="rs-tabs" aria-label="Habitaciones">
           {ROOMS.map((r, i) => (
             <button
               key={r.id}
