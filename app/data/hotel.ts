@@ -43,7 +43,7 @@ export const ROOMS: Room[] = [
     slug: "suite-duplex-balcon-1",
     number: "01",
     title: "Habitación Duplex",
-    subtitle: "CON BALCÓN HABITACIONES",
+    subtitle: "CON BALCÓN",
     description:
       "Distribución en dos niveles con dormitorio superior y sala social con balcón al callejón histórico.",
     longDescription:
@@ -53,10 +53,11 @@ export const ROOMS: Room[] = [
       "Cama doble premium",
       "TV inteligente",
       "Minibar",
-      "Baño privado lujo",
+      "Baño",
       "Balcón privado",
       "Desayuno incluido",
       "Check-out tardío",
+      "Minibar con maquina hielo",
     ],
     images: [
     "/FotosHotelVillaAlta/HABITACIONSUITEBALCON1/SUITEALCOBA1.jpg",
@@ -78,7 +79,7 @@ export const ROOMS: Room[] = [
     slug: "suite-duplex-balcon-2",
     number: "02",
     title: "Habitación Duplex",
-    subtitle: "SIN VISTA CON AMPLIA SALA DE ESTAR HABITACIONES",
+    subtitle: "SIN VISTA CON AMPLIA SALA DE ESTAR",
     description:
       "Esta habitación dúplex ofrece una distribución amplia y silenciosa, perfecta para estancias prolongadas o para quienes buscan un espacio tranquilo para trabajar y descansar. La habitación se organiza en dos niveles: en el nivel superior se encuentra el dormitorio con cama, TV y minibar, mientras que el nivel inferior cuenta con una generosa sala de estar, ideal para leer, trabajar o relajarse, además de baño privado y un área de bar completamente equipada. Aunque no cuenta con vista exterior, su amplitud, techos altos y acabados cálidos crean una atmósfera acogedora y serena. Es una excelente alternativa para quienes priorizan comodidad, silencio y espacio interior.",
     longDescription:
@@ -87,8 +88,9 @@ export const ROOMS: Room[] = [
      "Interior colonial",
       "Total privacidad",
       "Dúplex 2 niveles",
-      "Baño de lujo",
+      "Baño",
       "Desayuno incluido",
+      "Minibar con maquina hielo",
     ],
     images: [
       ("/FotosHotelVillaAlta/HABITACIONSUITE6/BAÑOHAB6Y7.jpg"),
@@ -105,17 +107,18 @@ export const ROOMS: Room[] = [
     slug: "habitacion-premium",
     number: "07",
     title: "Suite  Premium",
-    subtitle: "EN UN SOLO NIVEL HABITACIONES",
+    subtitle: "EN UN SOLO NIVEL",
     description:
     "Nuestra suite está diseñada para ofrecer máximo confort en un solo nivel, sin escaleras, facilitando una experiencia cómoda y fluida. Tanto el área de descanso como el espacio social se encuentran en el mismo piso, lo que la convierte en la opción más accesible y práctica del hotel. Cuenta con una cama extra grande y una distribución amplia que privilegia la tranquilidad y el descanso. Al no tener vista exterior, la suite ofrece un ambiente más silencioso y privado. Dispone de baño privado y un área de bar completamente equipada, ideal para descansar plenamente después de un día explorando la ciudad.",
     longDescription:
     "Nuestra suite está diseñada para ofrecer máximo confort en un solo nivel, sin escaleras, facilitando una experiencia cómoda y fluida. Tanto el área de descanso como el espacio social se encuentran en el mismo piso, lo que la convierte en la opción más accesible y práctica del hotel. Cuenta con una cama extra grande y una distribución amplia que privilegia la tranquilidad y el descanso. Al no tener vista exterior, la suite ofrece un ambiente más silencioso y privado. Dispone de baño privado y un área de bar completamente equipada, ideal para descansar plenamente después de un día explorando la ciudad.",
     features: [
       "Cama queen premium",
-      "Baño privado",
+      "Baño",
       "TV inteligente",
       "Desayuno incluido",
       "Check-out tardío",
+      "Minibar con maquina hielo",
     ],
     images: [
      ("/FotosHotelVillaAlta/HABITACIONPREMIUMSENCILLA7/HABITACIONPREMIUM-SENCILLA7.jpg"),

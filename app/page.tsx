@@ -5,8 +5,6 @@ import HeroSection from "./components/sections/HeroSection";
 import ReviewsSection from "./components/sections/ReviewsSection";
 import RoomsShowcase from "./components/sections/RoomsShowcase";
 
-
-
 export default function Home() {
   return (
     <>
@@ -17,4 +15,4 @@ export default function Home() {
       <ReviewsSection />
     </>
   );
-}
+} 

@@ -590,7 +590,7 @@ export default function RoomsShowcase() {
               <span style={{ opacity: .3, margin: "0 4px" }}>/</span>
               0{total}
             </div>
-            <span>Room</span>
+            <span>Habitacion</span>
           </div>
         </header>
         <div className="rs-body">
@@ -619,23 +619,18 @@ export default function RoomsShowcase() {
                   <div
                     key={i}
                     className={`rs-thumb${i === curImg ? " active" : ""}`}
-                    onClick={() => setCurImg(i)}
-                  >
-                
+                    onClick={() => setCurImg(i)}>
                     <img src={src} alt="" />
                   </div>
                 ))}
               </div>
             )}
           </div>
-
           <div ref={infoRef} className="rs-info">
             <div className="rs-eyebrow">
               Villa Alta · Suite {room.number} de {String(total).padStart(2, "0")}
             </div>
-
             <div className="rs-room-name">{room.title}</div>
-
             <h2
               className="rs-title"
               dangerouslySetInnerHTML={{ __html: room.subtitle.split(" ").slice(0, 3).join(" ") }}
@@ -644,9 +639,7 @@ export default function RoomsShowcase() {
               className="-title-sub"
               dangerouslySetInnerHTML={{ __html: room.subtitle.split(" ").slice(3).join(" ") || "&nbsp;" }}
             />
-
             <div className="rs-divider" />
-
             <p className="rs-desc">{room.longDescription}</p>
 
             <div className="rs-features">
@@ -686,7 +679,6 @@ export default function RoomsShowcase() {
           </div>
 
         </div>
-
         <nav className="rs-tabs" aria-label="Rooms">
           {ROOMS.map((r, i) => (
             <button

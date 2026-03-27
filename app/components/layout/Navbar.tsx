@@ -8,59 +8,109 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <nav
       className={clsx(
-        'fixed left-0 w-full z-50 transition-all duration-300',
-        scrolled ? 'top-0 shadow-lg bg-black/80 backdrop-blur-sm' : 'absolute top-0 bg-transparent'
+        'fixed left-0 w-full z-50 transition-all duration-500',
+        scrolled
+          ? 'top-0 bg-black/70 backdrop-blur-md shadow-lg'
+          : 'top-0 bg-black/30 backdrop-blur-sm'
       )}
     >
-      {/* Mobile */}
-      <div className="flex items-center justify-between px-8 py-6 md:hidden">
-        <Link href="/" className="text-white text-lg tracking-widest font-light">
-          VILLA·ALTA
-        </Link>
-        <button className="text-white text-base tracking-widest">MENU</button>
-      </div>
+      {/* CONTAINER FULL WIDTH */}
+      <div className="w-full px-6 md:px-10 lg:px-16">
 
-      {/* Desktop */}
-      <div className="hidden md:flex items-center justify-between max-w-[1800px] mx-auto px-16 py-8">
-        {/* Left — Menu */}
-        <button className="flex items-center gap-2 text-white text-base tracking-widest hover:opacity-70 transition">
-          <span className="flex flex-col gap-1">
-            <span className="block w-5 h-px bg-white" />
-            <span className="block w-5 h-px bg-white" />
-          </span>
-          MENU
-        </button>
-
-        {/* Center — Logo */}
-        <Link
-          href="/"
-          className="absolute left-1/2 -translate-x-1/2 text-white text-xl tracking-[0.3em] font-light"
-        >
-          VILLA·ALTA
-        </Link>
-
-        {/* Right — Nav links */}
-        <div className="flex items-center gap-10">
-          <Link href="/" className="text-white text-base tracking-widest font-semibold hover:opacity-70 transition">
-            HOME
+        {/* ================= MOBILE ================= */}
+        <div className="flex md:hidden items-center justify-between py-6">
+          
+          {/* LOGO */}
+          <Link
+            href="/"
+            className="text-white text-lg tracking-[0.15em] font-light"
+          >
+            VILLA·ALTA
           </Link>
-          <Link href="/book" className="text-white/70 text-base tracking-widest hover:opacity-100 transition">
-            BOOK NOW
+
+          {/* MENU BUTTON */}
+          <button className="flex items-center gap-2 text-white text-base tracking-[0.1em]">
+            <span className="flex flex-col gap-[3px]">
+              <span className="w-5 h-px bg-white" />
+              <span className="w-4 h-px bg-white" />
+            </span>
+            MENU
+          </button>
+        </div>
+
+        {/* ================= DESKTOP ================= */}
+        <div className="hidden md:flex items-center justify-between py-8 relative">
+
+          {/* LEFT - MENU */}
+          <button className="flex items-center gap-3 text-white text-base tracking-[0.1em] hover:text-white/70 transition">
+            <span className="flex flex-col gap-[3px]">
+              <span className="w-5 h-px bg-white" />
+              <span className="w-4 h-px bg-white" />
+            </span>
+            MENU
+          </button>
+
+          {/* CENTER - LOGO */}
+          <Link
+            href="/"
+            className="absolute left-1/2 -translate-x-1/2 text-white text-xl lg:text-2xl tracking-[0.2em] font-light hover:opacity-80 transition"
+          >
+            VILLA·ALTA
           </Link>
-          <span className="text-white/70 text-base tracking-widest">EN ∨</span>
+
+          {/* RIGHT - NAV LINKS */}
+          <div className="flex items-center gap-10 lg:gap-14">
+            
+            <NavLink href="/" label="HOME" active />
+
+            <NavLink href="/book" label="BOOK NOW" />
+
+            <button className="text-white/70 text-base tracking-[0.1em] hover:text-white transition">
+              EN ∨
+            </button>
+
+          </div>
         </div>
       </div>
 
-      {/* Bottom border line */}
-      <div className="hidden md:block absolute bottom-0 left-0 w-5/12 h-px bg-white/20" />
+      {/* LINE DECORATION */}
+      <div className="hidden md:block absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
     </nav>
+  );
+}
+
+/* ================= COMPONENTE REUTILIZABLE ================= */
+function NavLink({
+  href,
+  label,
+  active = false,
+}: {
+  href: string;
+  label: string;
+  active?: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className={clsx(
+        'text-base tracking-[0.1em] transition relative',
+        active
+          ? 'text-white font-medium'
+          : 'text-white/70 hover:text-white'
+      )}
+    >
+      {label}
+
+      {/* LINE HOVER PREMIUM */}
+      <span className="absolute left-0 -bottom-1 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
+    </Link>
   );
 }
