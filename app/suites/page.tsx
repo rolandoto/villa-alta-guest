@@ -193,7 +193,7 @@ export default function SuitesPage() {
         }
       `}</style>
 
-      <section className="mt-8" style={{ minHeight: "100vh", background: T.sand, color: T.ink }}>
+      <section className="mt-30" style={{ minHeight: "100vh", background: T.sand, color: T.ink }}>
         {/* ── Hero ── */}
         <div className="container-custom hero-grid">
           <div>

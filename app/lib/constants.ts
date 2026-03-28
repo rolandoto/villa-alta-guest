@@ -18,26 +18,21 @@ export const menu: MenuItem[] = [
     title: 'Inicio', 
     path: '/'
   },
+   { 
+    title: 'Galleria', 
+    path: '/gallery'
+  },
   { 
-    title: 'ABOUT US', 
-    path: '/about' 
+    title: 'SUITES', 
+    path: '/suites' 
   },
   { 
     title: 'Habitaciones', 
     path: '/rooms',
     submenu: [
-      { title: 'Habitación Dúplex CON BALCÓN', path: '/suite-duplex-balcon-1' },
-      { title: 'Habitación Dúplex SIN VISTA CON AMPLIA SALA DE ESTAR', path: '/suite-duplex-balcon-2' },
-      { title: 'Suite Premium EN UN SOLO NIVEL', path: '/habitacion-premium' },
-    ]
-  },
-  { 
-    title: 'Paginas', 
-    path: '/pages',
-    submenu: [
-      { title: 'Inicio', path: '/' },
-      { title: 'Galeria', path: '/galeria' },
-       { title: 'Suites', path: '/suites' },
+      { title: 'Habitación Dúplex CON BALCÓN', path: 'suites/suite-duplex-balcon-1' },
+      { title: 'Habitación Dúplex SIN VISTA CON AMPLIA SALA DE ESTAR', path: 'suites/suite-duplex-balcon-2' },
+      { title: 'Suite Premium EN UN SOLO NIVEL', path: 'suites/habitacion-premium' },
     ]
   },
   { 

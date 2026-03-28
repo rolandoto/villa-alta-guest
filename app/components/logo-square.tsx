@@ -14,8 +14,8 @@ export default function LogoSquare({
     <div
       className={clsx(
         'flex items-center justify-center',
-        size === 'sm' && 'h-32 w-64',
-        size === 'md' && 'h-32 w-52',
+        size === 'sm' && 'h-32 w-42',
+        size === 'md' && 'h-18 w-32',
         className
       )}>
       <LogoIcon
