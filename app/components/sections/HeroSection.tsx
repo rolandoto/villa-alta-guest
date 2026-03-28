@@ -111,7 +111,8 @@ export default function HeroSection() {
 
           <div style={{ marginTop: 26, display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
             <Link
-              href="/contacto"
+              href="https://villa-alta.vercel.app"
+              target="_blank"
               style={{
                 border: "1px solid rgba(255,255,255,.65)",
                 color: "#fff",

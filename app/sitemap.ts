@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { ROOMS } from "@/app/data/hotel";
 
-const BASE_URL = "https://villa-alta-guest-house.vercel.app";
+const BASE_URL = "https://www.villaaltaguesthouse.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const updatedAt = new Date();

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Cursor from "./components/ui/Cursor";
 import Footer from "./components/layout/Footer";
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/navbar/page";
 
 export const metadata: Metadata = {
   title: "Villa Alta Casa de Huéspedes | Cartagena de Indias",
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body>
         <Cursor />
-        <Navbar />
+        <Navbar/>
         <main>{children}</main>
         <Footer/>
       </body>

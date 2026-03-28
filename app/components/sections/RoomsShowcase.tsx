@@ -10,7 +10,6 @@ export default function RoomsShowcase() {
   const [curImg,  setCurImg]  = useState(0);
   const infoRef = useRef<HTMLDivElement>(null);
   const imgRef  = useRef<HTMLImageElement>(null);
-
   const room  = ROOMS[curRoom];
   const total = ROOMS.length;
   const half  = Math.ceil(room.features.length / 2);
