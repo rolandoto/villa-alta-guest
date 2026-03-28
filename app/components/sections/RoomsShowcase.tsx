@@ -657,7 +657,7 @@ export default function RoomsShowcase() {
             </div>
 
             <div className="rs-actions">
-              <Link href={`/suites/${room.slug}`} className="rs-btn-reserve">
+              <Link target="_blank" href="https://villa-alta.vercel.app/" className="rs-btn-reserve">
                 Reservar
               </Link>
               <Link href={`/suites/${room.slug}`} className="rs-btn-details">
