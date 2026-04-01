@@ -5,6 +5,8 @@ import HeroSection from "./components/sections/HeroSection";
 import ReviewsSection from "./components/sections/ReviewsSection";
 import RoomsShowcase from "./components/sections/RoomsShowcase";
 import { buildMetadata } from "./lib/seo";
+import ContactSection from "./components/location/location";
+import FAQPage from "./components/FAQPage/FAQPage";
 
 export const metadata: Metadata = buildMetadata({
   title: "Hotel boutique en Cartagena | Villa Alta Guest House",
@@ -22,6 +24,8 @@ export default function Home() {
       <GalleryHeroSlider />
       <RoomsShowcase />
       <ReviewsSection />
+      <FAQPage />
+      <ContactSection />
     </>
   );
 }

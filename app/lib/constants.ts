@@ -19,7 +19,7 @@ export const menu: MenuItem[] = [
     path: '/'
   },
    { 
-    title: 'Galleria', 
+    title: 'Galeria', 
     path: '/gallery'
   },
   { 
