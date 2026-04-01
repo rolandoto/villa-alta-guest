@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HOTEL } from "@/app/data/hotel";
+import { buildMetadata } from "@/app/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Contacto y reservas | Villa Alta Cartagena",
+  description:
+    "Contacta a Villa Alta para reservar tu estadía en Cartagena: teléfono, email y atención personalizada para tu viaje.",
+  path: "/contacto",
+  keywords: ["contacto hotel cartagena", "reservas villa alta", "telefono hotel cartagena"],
+});
 
 const FOTOS_CONTACTO = [
   "/FotosHotelVillaAlta/HABITACIONSUITEBALCON1/ENTRADAHOTEL.jpg",

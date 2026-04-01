@@ -1,9 +1,18 @@
-
+import type { Metadata } from "next";
 import { MarqueeStrip } from "./components/sections/BookingBar";
 import GalleryHeroSlider from "./components/sections/GalleryHeroSlider";
 import HeroSection from "./components/sections/HeroSection";
 import ReviewsSection from "./components/sections/ReviewsSection";
 import RoomsShowcase from "./components/sections/RoomsShowcase";
+import { buildMetadata } from "./lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Hotel boutique en Cartagena | Villa Alta Casa de Huéspedes",
+  description:
+    "Reserva en Villa Alta, hotel boutique en el Centro Histórico de Cartagena con suites dúplex, arquitectura colonial y experiencia premium.",
+  path: "/",
+  keywords: ["hotel boutique cartagena", "centro histórico cartagena", "suites cartagena", "villa alta"],
+});
 
 export default function Home() {
   return (
@@ -11,8 +20,8 @@ export default function Home() {
       <HeroSection />
       <MarqueeStrip />
       <GalleryHeroSlider />
-      <RoomsShowcase/>
+      <RoomsShowcase />
       <ReviewsSection />
     </>
   );
-} 
+}

@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { buildMetadata } from "@/app/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Galería del hotel en Cartagena",
+  description:
+    "Descubre la galería de Villa Alta con fotos reales de suites, lobby y detalles coloniales en Cartagena de Indias.",
+  path: "/galeria",
+  keywords: ["galeria hotel cartagena", "fotos villa alta", "hotel centro historico cartagena"],
+});
+
 
 // ─── Datos ────────────────────────────────────────────────────────────────────
 
