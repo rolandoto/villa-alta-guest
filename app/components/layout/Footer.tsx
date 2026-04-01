@@ -5,47 +5,66 @@ import { HOTEL, NAV_LINKS } from "@/app/data/hotel";
 export default function Footer() {
   return (
     <footer
+    className="bg-[#e8e2d9]"
       style={{
         position: "relative",
         overflow: "hidden",
-        background: "var(--secondary)",
+        background: "#3a1c20",
         padding: "80px 20px 40px",
+        fontFamily: "'Barlow Condensed', sans-serif",
       }}
     >
-      <div style={{ position: "absolute", inset: 0, opacity: 0.08, zIndex: 0 }} />
+      {/* Textura ruido */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px",
+          opacity: 0.45,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
       <div style={{ position: "relative", zIndex: 1, maxWidth: 1400, margin: "0 auto" }}>
-        
+
         {/* LOGO */}
-        <div
-          style={{
-            fontFamily: "'Barlow Condensed',sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(28px,10vw,90px)",
-            lineHeight: 0.9,
-            letterSpacing: "-.025em",
-            textTransform: "uppercase",
-            marginBottom: 40,
-            background: "linear-gradient(135deg,rgba(255,255,255,.9),rgba(201,169,110,.55))",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-          }}
-        >
-          Villa Alta
-          <em
+        <div style={{ marginBottom: 48 }}>
+          <div
             style={{
-              display: "block",
-              fontStyle: "normal",
+              fontWeight: 900,
+              fontSize: "clamp(28px, 10vw, 90px)",
+              lineHeight: 0.86,
+              letterSpacing: "-.025em",
+              textTransform: "uppercase",
+              color: "#f2ede4",
+            }}
+          >
+            Villa Alta
+          </div>
+          <div
+            style={{
               fontWeight: 200,
-              fontSize: "clamp(12px,3vw,22px)",
+              fontSize: "clamp(12px, 3vw, 18px)",
               letterSpacing: ".4em",
+              textTransform: "uppercase",
+              color: "#c96e85",
               marginTop: 6,
-              paddingLeft: ".4em",
-              color: "white",
+              paddingLeft: "0.4em",
             }}
           >
             Guest House
-          </em>
+          </div>
+          {/* línea dorada */}
+          <div
+            style={{
+              width: 40,
+              height: 1,
+              background: "linear-gradient(to right, #c9a96e, transparent)",
+              marginTop: 20,
+            }}
+          />
         </div>
 
         {/* GRID */}
@@ -54,29 +73,37 @@ export default function Footer() {
             display: "grid",
             gap: 40,
             paddingTop: 40,
-            borderTop: "1px solid rgba(255,255,255,.055)",
-
-            // 🔥 responsive automático
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            borderTop: "1px solid rgba(242,237,228,.08)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           }}
         >
-          
+
           {/* INFO */}
           <div>
+            <div
+              style={{
+                fontSize: 9,
+                letterSpacing: ".28em",
+                textTransform: "uppercase",
+                color: "rgba(242,237,228,.32)",
+                marginBottom: 16,
+              }}
+            >
+              El hotel
+            </div>
             <p
               style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
                 fontSize: 14,
-                letterSpacing: ".12em",
+                letterSpacing: ".1em",
                 textTransform: "uppercase",
-                color: "var(--cream)",
-                lineHeight: 1.6,
+                color: "rgba(242,237,228,.72)",
+                lineHeight: 1.7,
+                margin: "0 0 20px",
               }}
             >
               Una joya arquitectónica en el corazón de Cartagena de Indias,
               donde el lujo colonial se encuentra con el confort moderno.
             </p>
-
             <a
               href="https://www.instagram.com/villaalta.ctg/"
               target="_blank"
@@ -85,22 +112,17 @@ export default function Footer() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginTop: 20,
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontSize: 16,
-                letterSpacing: ".2em",
+                fontSize: 9,
+                letterSpacing: ".28em",
                 textTransform: "uppercase",
-                borderBottom: "1px solid rgba(255,255,255,.1)",
+                color: "rgba(242,237,228,.5)",
+                textDecoration: "none",
+                borderBottom: "1px solid rgba(242,237,228,.1)",
                 paddingBottom: 2,
-                color: "rgba(255,255,255,.6)",
-                transition: "color .3s",
+                transition: "color .25s",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "var(--gold)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(255,255,255,.6)")
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a96e")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(242,237,228,.5)")}
             >
               ↗ {HOTEL.instagram}
             </a>
@@ -110,27 +132,38 @@ export default function Footer() {
           <div>
             <div
               style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontSize: 12,
-                letterSpacing: ".24em",
+                fontSize: 9,
+                letterSpacing: ".28em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,.2)",
+                color: "rgba(242,237,228,.32)",
                 marginBottom: 16,
               }}
             >
               Navegación
             </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {[{ label: "Inicio", href: "/" }, ...NAV_LINKS].map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
                   style={{
-                    fontFamily: "'Barlow Condensed',sans-serif",
                     fontSize: 18,
-                    fontWeight: 600,
-                    letterSpacing: ".12em",
+                    fontWeight: 700,
+                    letterSpacing: ".14em",
+                    textTransform: "uppercase",
+                    color: "rgba(242,237,228,.72)",
+                    textDecoration: "none",
+                    padding: "6px 0",
+                    borderBottom: "1px solid transparent",
+                    transition: "color .2s, border-color .2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#f2ede4";
+                    e.currentTarget.style.borderBottomColor = "rgba(201,110,133,.3)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "rgba(242,237,228,.72)";
+                    e.currentTarget.style.borderBottomColor = "transparent";
                   }}
                 >
                   {l.label}
@@ -143,41 +176,80 @@ export default function Footer() {
           <div>
             <div
               style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontSize: 12,
-                letterSpacing: ".24em",
+                fontSize: 9,
+                letterSpacing: ".28em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,.2)",
+                color: "rgba(242,237,228,.32)",
                 marginBottom: 16,
               }}
             >
               Contacto
             </div>
-
             <div
               style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontSize: 14,
+                fontSize: 13,
                 letterSpacing: ".12em",
                 textTransform: "uppercase",
-                color: "var(--cream)",
-                lineHeight: 1.6,
+                color: "rgba(242,237,228,.72)",
+                lineHeight: 1.8,
               }}
             >
               {HOTEL.location}
               <br />
               {HOTEL.city}
-              <br /><br />
-
-              <a href={`tel:${HOTEL.phone}`} style={{ color: "inherit" }}>
+              <br />
+              <br />
+              <a
+                href={`tel:${HOTEL.phone}`}
+                style={{ color: "rgba(242,237,228,.72)", textDecoration: "none", transition: "color .2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a96e")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(242,237,228,.72)")}
+              >
                 {HOTEL.phone}
               </a>
               <br />
-
-              <a href={`mailto:${HOTEL.email}`} style={{ color: "inherit" }}>
+              <a
+                href={`mailto:${HOTEL.email}`}
+                style={{ color: "rgba(242,237,228,.72)", textDecoration: "none", transition: "color .2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a96e")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(242,237,228,.72)")}
+              >
                 {HOTEL.email}
               </a>
             </div>
+
+            {/* CTA reserva */}
+            <a
+              href="https://villa-alta.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                marginTop: 28,
+                padding: "12px 32px",
+                borderRadius: 2,
+                border: "1px solid #c96e85",
+                background: "transparent",
+                color: "#e0899e",
+                fontSize: 9,
+                letterSpacing: ".32em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                transition: "background .25s, color .25s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#c96e85";
+                e.currentTarget.style.color = "#3a1c20";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#e0899e";
+              }}
+            >
+              Reservar ahora →
+            </a>
           </div>
         </div>
 
@@ -185,19 +257,20 @@ export default function Footer() {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
             gap: 10,
-            textAlign: "center",
-            paddingTop: 30,
+            paddingTop: 28,
             marginTop: 40,
-            borderTop: "1px solid rgba(255,255,255,.04)",
-            fontFamily: "'Barlow Condensed',sans-serif",
-            fontSize: 12,
-            letterSpacing: ".12em",
+            borderTop: "1px solid rgba(242,237,228,.06)",
+            fontSize: 9,
+            letterSpacing: ".2em",
             textTransform: "uppercase",
+            color: "rgba(242,237,228,.28)",
           }}
         >
-          <span>© 2026 Villa Alta Guest House</span>
+          <span>© 2026 Villa Alta Guest House · Diez Elementos S.A.S.</span>
           <span>Desarrollado por SLE Development</span>
         </div>
       </div>

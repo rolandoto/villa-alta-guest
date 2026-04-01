@@ -44,7 +44,7 @@ export default function HeroSection() {
           </div>
           <p style={{ margin: 0, textTransform: "uppercase", letterSpacing: ".45em", fontSize: 11 }}>Villa Alta</p>
           <p style={{ margin: "7px 0 0", textTransform: "uppercase", letterSpacing: ".35em", fontSize: 10, opacity: 0.7 }}>
-            Casa de Huéspedes
+           Guest house
           </p>
           <div
             style={{
