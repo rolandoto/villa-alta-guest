@@ -8,12 +8,12 @@ import { SITE_URL } from "./lib/seo";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Villa Alta Casa de Huéspedes | Cartagena de Indias",
-    template: "%s | Villa Alta Casa de Huéspedes",
+    default: "Villa Alta Guest Houses | Cartagena de Indias",
+    template: "%s | Villa Alta Guest Houses",
   },
   description:
     "Hotel boutique de lujo en el Centro Histórico de Cartagena. Patrimonio arquitectónico del siglo XVIII con 7 suites únicas.",
-  keywords: ["hotel cartagena", "villa alta", "casa de huéspedes", "boutique", "centro histórico"],
+  keywords: ["hotel cartagena", "villa alta", "Guest House", "boutique", "centro histórico"],
   category: "travel",
 };
 

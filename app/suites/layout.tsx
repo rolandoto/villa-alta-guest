@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/app/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Suites en Cartagena | Villa Alta Casa de Huéspedes",
+  title: "Suites en Cartagena | Villa Alta Guest House",
   description:
     "Explora nuestras suites en Cartagena: habitaciones dúplex y premium con diseño colonial contemporáneo en el Centro Histórico.",
   path: "/suites",

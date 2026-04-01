@@ -12,13 +12,13 @@ export function generateStaticParams() {
 export function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Metadata {
-  const room = ROOMS.find((item) => item.slug === params.slug);
+  const room = ROOMS.find(async (item) => item.slug === (await params).slug);
 
   if (!room) {
     return buildMetadata({
-      title: "Suite no encontrada | Villa Alta",
+      title: "Suite no encontrada | Villa Alta Guest House",
       description: "La suite solicitada no se encuentra disponible en Villa Alta.",
       path: "/suites",
     });
@@ -38,13 +38,14 @@ export function generateMetadata({
   });
 }
 
-export default function SuiteDetailPage({
+export default async function SuiteDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params:  Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+ const { slug } = await params;
   const room = ROOMS.find((item) => item.slug === slug);
+
   if (!room) notFound();
 
   const half = Math.ceil(room.features.length / 2);

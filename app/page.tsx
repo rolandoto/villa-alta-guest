@@ -7,7 +7,7 @@ import RoomsShowcase from "./components/sections/RoomsShowcase";
 import { buildMetadata } from "./lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Hotel boutique en Cartagena | Villa Alta Casa de Huéspedes",
+  title: "Hotel boutique en Cartagena | Villa Alta Guest House",
   description:
     "Reserva en Villa Alta, hotel boutique en el Centro Histórico de Cartagena con suites dúplex, arquitectura colonial y experiencia premium.",
   path: "/",
