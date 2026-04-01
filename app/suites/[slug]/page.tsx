@@ -1,19 +1,49 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ROOMS } from "@/app/data/hotel";
-
+import { buildMetadata } from "@/app/lib/seo";
 
 export function generateStaticParams() {
   return ROOMS.map((room) => ({ slug: room.slug }));
 }
 
-export default async function SuiteDetailPage({
+export function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
+}): Metadata {
+  const room = ROOMS.find((item) => item.slug === params.slug);
+
+  if (!room) {
+    return buildMetadata({
+      title: "Suite no encontrada | Villa Alta",
+      description: "La suite solicitada no se encuentra disponible en Villa Alta.",
+      path: "/suites",
+    });
+  }
+
+  return buildMetadata({
+    title: `${room.title} ${room.number} | Villa Alta Cartagena`,
+    description: room.description,
+    path: `/suites/${room.slug}`,
+    keywords: [
+      `suite ${room.number} cartagena`,
+      room.title.toLowerCase(),
+      "hotel boutique cartagena",
+      "villa alta",
+    ],
+    image: room.images[0],
+  });
+}
+
+export default function SuiteDetailPage({
+  params,
+}: {
+  params: { slug: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params;
   const room = ROOMS.find((item) => item.slug === slug);
   if (!room) notFound();
 

@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/app/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/gallery"],
     },
-    sitemap: "https://villa-alta-guest-house.vercel.app/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
