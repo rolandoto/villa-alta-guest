@@ -17,11 +17,44 @@ export const metadata: Metadata = {
   category: "travel",
 };
 
+
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body>
+      
         <Cursor />
+        <a 
+          href="https://villa-alta.vercel.app/"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            position: "fixed",
+            bottom: 24,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 100,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            padding: "13px 40px",
+            borderRadius: 2,
+            border: "1px solid #c96e85",
+            background: "#3a1c20",
+            color: "#e0899e",
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontSize: 9,
+            letterSpacing: ".32em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+            boxShadow: "0 8px 32px rgba(44,20,24,.6)",
+          }}
+          className="va-fixed-btn"
+        >
+          Reservar ahora →
+        </a>
         <Navbar />
         <main>{children}</main>
         <Footer />

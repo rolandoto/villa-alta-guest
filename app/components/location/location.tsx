@@ -219,7 +219,7 @@ export default function ContactSection() {
         .gold-rule { display:block; width:36px; height:1px; background:linear-gradient(90deg,transparent,#b8975a,transparent); margin-top:10px; }
       `}</style>
 
-      <div className="va-root">
+      <div className="va-root" id="ubicacion">
 
         {/* ── MOBILE TAB BAR ─────────────────────────────────────── */}
         <div className="lg:hidden sticky top-0 z-30 flex border-b bg-[#faf7f2]/95 backdrop-blur-sm"

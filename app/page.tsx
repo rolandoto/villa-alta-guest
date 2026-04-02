@@ -14,7 +14,15 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Reserva en Villa Alta, hotel boutique en el Centro Histórico de Cartagena con suites dúplex, arquitectura colonial y experiencia premium.",
   path: "/",
-  keywords: ["hotel boutique cartagena", "centro histórico cartagena", "suites cartagena", "villa alta"],
+   keywords: [
+    "hotel en cartagena",
+    "hotel centro histórico cartagena",
+    "hotel boutique cartagena",
+    "suites en cartagena",
+    "hotel con desayuno incluido cartagena",
+    "hotel romántico cartagena",
+    "dónde hospedarse en cartagena",
+  ],
 });
 
 export default function Home() {
@@ -27,7 +35,7 @@ export default function Home() {
       <ReviewsSection />
       <FAQPage />
       <ContactSection />
-         <TermsPage />
+      <TermsPage />
     </>
   );
 }

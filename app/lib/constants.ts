@@ -26,6 +26,15 @@ export const menu: MenuItem[] = [
     title: 'SUITES', 
     path: '/suites' 
   },
+   { 
+    title: 'Reseñas', 
+    path: '/#resenas' 
+  },
+
+  { 
+    title: 'Ubicación', 
+    path: '/#ubicacion' 
+  },
   { 
     title: 'Habitaciones', 
     path: '/rooms',
