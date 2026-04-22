@@ -13,24 +13,40 @@ const sections = [
     content: `Aceptamos tarjetas débito y crédito de las principales franquicias, pagos mediante link electrónico, transferencias bancarias y efectivo. No aceptamos pagos por Nequi. Para reservas directas, el pago se gestiona a través de nuestra plataforma de reservas. No se requiere depósito de garantía al momento del check-in.`,
   },
   {
+    id: "retracto",
+    title: "Derecho de retracto",
+    content: `El huésped podrá ejercer el derecho de retracto únicamente en compras no presenciales realizadas a través de portales web o canales de reserva directa (WhatsApp, correo electrónico o central telefónica). La solicitud deberá realizarse dentro de un plazo máximo de cinco (5) días hábiles posteriores a la confirmación de la reserva. Si la fecha de ingreso está dentro de ese plazo, no procederá el derecho de retracto y aplicarán las políticas de cancelación estándar.`,
+  },
+  {
+    id: "cancelaciones",
+    title: "Políticas de cancelación",
+    content: `En caso de no aplicar el derecho de retracto, las cancelaciones se regirán bajo las siguientes condiciones basadas en la anticipación del aviso:`,
+    items: [
+      { label: "8 días o más antes del check-in", value: "Devolución del 80% del valor depositado." },
+      { label: "Entre 8 y 3 días antes del check-in", value: "Se retendrá el 50% del valor depositado." },
+      { label: "Dentro de las 48 horas previas", value: "Se cobrará el 100% del valor depositado (No reembolsable)." },
+      { label: "Salidas anticipadas", value: "Se generará un saldo a favor por las noches no utilizadas, válido por un (1) año, sujeto a disponibilidad." },
+    ],
+  },
+  {
+    id: "devoluciones",
+    title: "Políticas de devolución",
+    content: `Cuando proceda una devolución conforme a nuestras políticas, Villa Alta Guest House gestionará el reembolso bajo los siguientes términos:`,
+    items: [
+      { label: "Plazo de ejecución", value: "Máximo 30 días calendario a partir de la solicitud formal." },
+      { label: "Método de reembolso", value: "Consignación bancaria al titular de la reserva o reversión al mismo medio de pago utilizado." },
+    ],
+  },
+  {
     id: "checkin",
     title: "Check-in y check-out",
     content: null,
     items: [
       { label: "Check-in", value: "desde las 3:00 p.m." },
       { label: "Check-out", value: "hasta las 11:00 a.m." },
-      { label: "Late check-out", value: "hasta las 12:00 p.m. de cortesía, sujeto a disponibilidad, para quienes lo soliciten con anticipación. No está garantizado." },
+      { label: "Late check-out", value: "hasta las 12:00 p.m. de cortesía, sujeto a disponibilidad, para quienes lo soliciten con anticipación." },
     ],
     note: "Solicitudes fuera de estos horarios se evalúan caso a caso sin costo adicional garantizado.",
-  },
-  {
-    id: "cancelaciones",
-    title: "Cancelaciones y reembolsos",
-    content: null,
-    items: [
-      { label: "Hasta las 11:59 p.m. del día anterior", value: "Reembolso total." },
-      { label: "Mismo día de llegada o no-show", value: "Se cobra el valor total de la reserva." },
-    ],
   },
   {
     id: "capacidad",
@@ -45,25 +61,24 @@ const sections = [
   {
     id: "mascotas",
     title: "Mascotas",
-    content: `Las mascotas son bienvenidas. El huésped asume plena responsabilidad por cualquier daño causado a las instalaciones, molestias ocasionadas a otros huéspedes o servicio de limpieza adicional requerido. Estos costos serán cargados al método de pago registrado.`,
+    content: `Las mascotas son bienvenidas. El huésped asume plena responsabilidad por cualquier daño causado a las instalaciones o molestias ocasionadas. Los costos de reparación o limpieza profunda serán cargados al método de pago registrado.`,
   },
   {
     id: "convivencia",
     title: "Convivencia",
-    content: `Villa Alta Guest House es un espacio compartido. No contamos con horario de silencio establecido; sin embargo, exigimos respeto hacia los demás huéspedes en todo momento. En caso de que un huésped genere molestias significativas a otros, la administración se reserva el derecho de cancelar la reserva y solicitar el retiro del huésped de la propiedad sin derecho a reembolso.`,
+    content: `Villa Alta es un espacio compartido de respeto. No contamos con horario de silencio estricto, pero exigimos comportamiento moderado. La administración se reserva el derecho de retiro sin reembolso en caso de molestias significativas a terceros.`,
   },
   {
     id: "accesibilidad",
     title: "Accesibilidad",
-    content: `El hotel no cuenta con ascensor. El acceso principal y la mayoría de las habitaciones requieren el uso de escaleras, como parte de la arquitectura original del inmueble del siglo XVIII. Recomendamos consultar con nosotros antes de reservar si tienes necesidades de movilidad específicas.`,
+    content: `El hotel no cuenta con ascensor. Al ser una arquitectura original del siglo XVIII, el acceso requiere el uso de escaleras. Por favor, infórmenos si tiene necesidades de movilidad específicas antes de reservar.`,
   },
   {
     id: "privacidad",
-    title: "Política de privacidad y tratamiento de datos personales",
-    content: `En cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013, Diez Elementos S.A.S. informa que los datos personales recopilados durante el proceso de reserva serán utilizados exclusivamente para la gestión del alojamiento, comunicaciones relacionadas con la reserva y el cumplimiento de obligaciones legales. Los datos no serán compartidos con terceros sin autorización del titular, salvo obligación legal. Para ejercer los derechos de acceso, corrección, supresión o revocación del consentimiento, escríbenos a: hotelvillaaltac@gmail.com.`,
+    title: "Privacidad y Datos",
+    content: `Diez Elementos S.A.S. (Ley 1581 de 2012) utiliza sus datos solo para la gestión del alojamiento y obligaciones legales. Para consultas o supresión de datos: hotelvillaaltac@gmail.com.`,
   },
 ];
-
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
@@ -192,7 +207,7 @@ export default function TermsPage() {
 
           <main className="tc-main">
             <div className="tc-topbar">
-              <span>Diez Elementos S.A.S. · NIT 901661524-1</span>
+              <span>Hotel Villa alta · NIT 1047403601-9</span>
               <span>RNT No. 224939</span>
             </div>
 
@@ -233,7 +248,6 @@ export default function TermsPage() {
                 )}
               </section>
             ))}
-
             <div className="tc-footer">
               <p className="tc-footer-text">
                 ¿Tienes preguntas sobre estas políticas?<br />Escríbenos, somos locales y se nota.
