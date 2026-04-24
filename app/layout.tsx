@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     default: "Villa Alta Guest Houses | Cartagena de Indias",
     template: "%s | Villa Alta Guest Houses",
   },
+  verification: {
+    google: 'k6IGz3NXc6RdlDaKRMWVKxM4vKOb1mSEe2Up8laYegI', // Pega solo el código alfanumérico que viene dentro del content="..."
+  },
   description:
     "Hotel boutique de lujo en el Centro Histórico de Cartagena. Patrimonio arquitectónico del siglo XVIII con 7 suites únicas.",
   keywords: ["hotel cartagena", "villa alta", "Guest House", "boutique", "centro histórico"],
