@@ -9,12 +9,15 @@ export function generateStaticParams() {
   return ROOMS.map((room) => ({ slug: room.slug }));
 }
 
-export function generateMetadata({
+
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}): Metadata {
-  const room = ROOMS.find(async (item) => item.slug === (await params).slug);
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const room = ROOMS.find((item) => item.slug === slug);
 
   if (!room) {
     return buildMetadata({
@@ -34,7 +37,7 @@ export function generateMetadata({
       "hotel boutique cartagena",
       "villa alta",
     ],
-    image: room.images[0],
+    image: room.images[0], // Asegúrate de que este campo exista en buildMetadata
   });
 }
 
