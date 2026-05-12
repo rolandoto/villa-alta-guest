@@ -34,7 +34,7 @@ const sections = [
     content: `Cuando proceda una devolución conforme a nuestras políticas, Villa Alta Guest House gestionará el reembolso bajo los siguientes términos:`,
     items: [
       { label: "Plazo de ejecución", value: "Máximo 30 días calendario a partir de la solicitud formal." },
-      { label: "Método de reembolso", value: "Consignación bancaria al titular de la reserva o reversión al mismo medio de pago utilizado." },
+      { label: "Método de reembolso", value: "Devolución por medio de consignación bancaria a la misma cuenta de origen del pago hecho o reversión a la tarjeta utilizada al momento de realizar el pago" },
     ],
   },
   {

@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "¿Cuál es la política de cancelación?",
-    a: "Ofrecemos reembolso total para cancelaciones realizadas hasta un día antes de la llegada. Las cancelaciones en el mismo día o los no-shows aplican tarifa completa.",
+    a: "Para ver nuestra politica de cancelacion, terminos y condiciones de reservas, visita https://www.villaaltaguesthouse.com/#terminos",
     icon: "◈",
   },
   {
